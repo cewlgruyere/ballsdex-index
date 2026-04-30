@@ -3,11 +3,6 @@
   ],
   "unapproved": [
     {
-      "id": "example-cog",
-      "repo": "https://github.com/Ballsdex-Team/external-package-example",
-      "branch": "main"
-    },
-    {
       "id": "broadcast",
       "repo": "https://github.com/Ray-Hsueh/BallsDex-Broadcast-Pack",
       "branch": "main"
