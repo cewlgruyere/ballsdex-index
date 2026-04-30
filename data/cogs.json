@@ -11,6 +11,11 @@
       "id": "bd-labelmaker",
       "repo": "https://github.com/dormieriancitizen/bd-labelmaker",
       "branch": "main"
+    },
+    {
+      "id": "report",
+      "repo": "https://github.com/Ray-Hsueh/BallsDex-Report-Pack",
+      "branch": "main"
     }
   ]
 }
