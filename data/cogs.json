@@ -1,7 +1,12 @@
 {
   "approved": [
   ],
-  "unapproved": [
+  "unapproved": 
+    {
+      "id": "collector",
+      "repo": "https://github.com/flaree/ballsdex-collector",
+      "branch": "master"
+    },
     {
       "id": "broadcast",
       "repo": "https://github.com/Ray-Hsueh/BallsDex-Broadcast-Pack",
