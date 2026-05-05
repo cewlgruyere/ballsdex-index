@@ -1,5 +1,27 @@
 [
   {
+    "id": "collector",
+    "status": "unapproved",
+    "repo": "https://github.com/flaree/ballsdex-collector",
+    "branch": "master",
+    "name": "collector",
+    "version": "0.0.1",
+    "description": "Collector package for BallsDex",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "flare",
+        "email": "flare@ballsdex.com"
+      }
+    ],
+    "urls": {
+      "Homepage": "https://github.com/flaree/ballsdex-collector"
+    },
+    "dependencies": [
+      "ballsdex>=3.0.0"
+    ]
+  },
+  {
     "id": "broadcast",
     "status": "unapproved",
     "repo": "https://github.com/Ray-Hsueh/BallsDex-Broadcast-Pack",
