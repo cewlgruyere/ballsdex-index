@@ -48,6 +48,28 @@
     "dependencies": []
   },
   {
+    "id": "crafting",
+    "status": "unapproved",
+    "repo": "https://github.com/flaree/ballsdex-crafting",
+    "branch": "master",
+    "install_url": "git+https://github.com/flaree/ballsdex-crafting.git#master",
+    "name": "crafting",
+    "version": "0.0.2",
+    "description": "Crafting package for BallsDex",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "flare",
+        "email": "flare@ballsdex.com"
+      }
+    ],
+    "urls": {
+      "Homepage": "https://github.com/flaree/ballsdex-crafting",
+      "Funding": "https://www.patreon.com/flaree"
+    },
+    "dependencies": []
+  },
+  {
     "id": "broadcast",
     "status": "unapproved",
     "repo": "https://github.com/Ray-Hsueh/BallsDex-Broadcast-Pack",
