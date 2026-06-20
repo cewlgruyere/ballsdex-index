@@ -384,5 +384,27 @@
       "Issues": "https://github.com/hiboman/BallsDex-Battle-Pack/issues"
     },
     "dependencies": []
+  },
+  {
+    "id": "hiboman-crafting",
+    "status": "unapproved",
+    "repo": "https://github.com/MapsDex-Team/BallsDex-Crafting-Pack",
+    "branch": "master",
+    "install_url": "git+https://github.com/MapsDex-Team/BallsDex-Crafting-Pack.git#master",
+    "name": "crafting",
+    "version": "0.3.1",
+    "description": "Crafting package for BallsDex",
+    "license": "",
+    "authors": [
+      {
+        "name": "Mitoooooooopo"
+      }
+    ],
+    "urls": {
+      "Repository": "https://github.com/Mitoooooooopo/Crafting-package-BD",
+      "Documentation": "https://github.com/Mitoooooooopo/Crafting-package-BD#readme",
+      "Issues": "https://github.com/Mitoooooooopo/Crafting-package-BD/issues"
+    },
+    "dependencies": []
   }
 ]
