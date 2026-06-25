@@ -28,9 +28,9 @@
     "status": "unapproved",
     "repo": "https://github.com/flaree/ballsdex-frames",
     "branch": "master",
-    "install_url": "git+https://github.com/flaree/ballsdex-frames@v0.0.5",
+    "install_url": "git+https://github.com/flaree/ballsdex-frames@v0.0.6",
     "name": "frames",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "Frames package for BallsDex \u2014 date-based ball art overrides",
     "license": "MIT",
     "authors": [
