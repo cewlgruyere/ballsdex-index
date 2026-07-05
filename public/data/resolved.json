@@ -21,7 +21,8 @@
       "Changelogs": "https://ballsdex-collector.readthedocs.io/en/latest/changelog.html",
       "Funding": "https://www.patreon.com/flaree"
     },
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   },
   {
     "id": "frames",
@@ -45,7 +46,8 @@
       "Changelogs": "https://ballsdex-frames.readthedocs.io/en/latest/changelog.html",
       "Funding": "https://www.patreon.com/flaree"
     },
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   },
   {
     "id": "bd-labelmaker",
@@ -66,7 +68,8 @@
     "urls": {
       "homepage": "https://github.com/dormieriancitizen/bd-labelmaker"
     },
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   },
   {
     "id": "leaderboard",
@@ -89,7 +92,8 @@
       "Documentation": "https://github.com/cewlgruyere/Ballsdex-leaderboard-pack-v3#readme",
       "Issues": "https://github.com/cewlgruyere/Ballsdex-leaderboard-pack-v3/issues"
     },
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   },
   {
     "id": "dexscript",
@@ -111,7 +115,8 @@
       "Homepage": "https://github.com/Caylies/DexScript",
       "Funding": "https://ko-fi.com/caylies"
     },
-    "dependencies": []
+    "dependencies": [],
+    "stars": 8
   },
   {
     "id": "v2-completion",
@@ -134,7 +139,8 @@
       "Documentation": "https://github.com/cewlgruyere/V2-Completion#readme",
       "Issues": "https://github.com/cewlgruyere/V2-Completion/issues"
     },
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   },
   {
     "id": "hiboman-rarity",
@@ -157,7 +163,8 @@
       "Documentation": "https://github.com/MapsDex-Team/BallsDex-Rarity-Pack#readme",
       "Issues": "https://github.com/MapsDex-Team/BallsDex-Rarity-Pack/issues"
     },
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   },
   {
     "id": "bd-fontchanger",
@@ -178,7 +185,8 @@
     "urls": {
       "homepage": "https://github.com/dormieriancitizen/bd-fontchanger"
     },
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   },
   {
     "id": "hiboman-leaderboard",
@@ -201,7 +209,8 @@
       "Documentation": "https://github.com/MapsDex-Team/BallsDex-Leaderboard-Pack#readme",
       "Issues": "https://github.com/MapsDex-Team/BallsDex-Leaderboard-Pack/issues"
     },
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   },
   {
     "id": "re-collection",
@@ -220,7 +229,8 @@
       }
     ],
     "urls": {},
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   },
   {
     "id": "hiboman-antifarm",
@@ -243,7 +253,8 @@
       "Documentation": "https://github.com/MapsDex-Team/BallsDex-AntiFarm-Pack#readme",
       "Issues": "https://github.com/MapsDex-Team/BallsDex-AntiFarm-Pack/issues"
     },
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   },
   {
     "id": "hiboman-battle",
@@ -266,7 +277,8 @@
       "Documentation": "https://github.com/hiboman/BallsDex-Battle-Pack#readme",
       "Issues": "https://github.com/hiboman/BallsDex-Battle-Pack/issues"
     },
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   },
   {
     "id": "SpecialBonuses",
@@ -285,7 +297,8 @@
       }
     ],
     "urls": {},
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   },
   {
     "id": "packs",
@@ -308,6 +321,7 @@
       "Documentation": "https://github.com/seiftheman/ballsdex-packs#readme",
       "Issues": "https://github.com/seiftheman/ballsdex-packs/issues"
     },
-    "dependencies": []
+    "dependencies": [],
+    "stars": 0
   }
 ]
