@@ -371,5 +371,29 @@
     },
     "dependencies": [],
     "stars": 0
+  },
+  {
+    "id": "tutorial",
+    "status": "unapproved",
+    "repo": "https://github.com/seiftheman/ballsdex-tutorial",
+    "branch": "main",
+    "install_url": "git+https://github.com/seiftheman/ballsdex-tutorial@v1.0.1",
+    "name": "ballsdex-tutorial",
+    "version": "1.0.1",
+    "description": "Tutorial package for Ballsdex 3.0",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Seif",
+        "email": "seiftheman1@gmail.com"
+      }
+    ],
+    "urls": {
+      "Repository": "https://github.com/seiftheman/ballsdex-tutorial",
+      "Documentation": "https://github.com/seiftheman/ballsdex-tutorial#readme",
+      "Issues": "https://github.com/seiftheman/ballsdex-tutorial/issues"
+    },
+    "dependencies": [],
+    "stars": 0
   }
 ]
