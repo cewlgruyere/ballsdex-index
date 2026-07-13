@@ -22,6 +22,17 @@ except ModuleNotFoundError:
 GITHUB_REPO_RE = re.compile(r"github\.com[:/]([^/]+)/([^/]+?)(?:\.git)?/?$")
 
 
+def cog_key(entry: dict) -> str:
+    """Return a stable identifier for a cogs.json entry, derived from where it points.
+
+    Used in place of a manually-assigned id so the same package can be listed
+    more than once (e.g. under a different branch or fork) without collisions.
+    """
+    branch = entry.get("branch", "main")
+    subdirectory = entry.get("subdirectory", "")
+    return f"{entry['repo']}@{branch}#{subdirectory}"
+
+
 def get_stars(repo_url: str) -> int | None:
     """Return the star count for a GitHub repo URL, or None if it can't be determined."""
     match = GITHUB_REPO_RE.search(repo_url)
@@ -95,4 +106,5 @@ def clone_and_read(repo_url: str, branch: str, tmpdir: str, subdirectory: str | 
         "authors": project.get("authors", []),
         "urls": project.get("urls", {}),
         "dependencies": project.get("dependencies", []),
+        "tags": project.get("keywords", []),
     }

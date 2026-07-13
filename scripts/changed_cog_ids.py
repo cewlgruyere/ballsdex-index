@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
-Print the ids of cogs in data/cogs.json that are new or changed relative to
-a base commit. Used by the PR validation workflow to scope the release check
-to only the cog(s) a PR actually touches.
+Print the keys (see cog_utils.cog_key) of cogs in data/cogs.json that are new
+or changed relative to a base commit. Used by the PR validation workflow to
+scope the release check to only the cog(s) a PR actually touches.
 """
 
 import json
 import subprocess
 import sys
 from pathlib import Path
+
+from cog_utils import cog_key
 
 REPO_ROOT = Path(__file__).parent.parent
 COGS_FILE = REPO_ROOT / "data" / "cogs.json"
@@ -18,7 +20,7 @@ def load_entries(data: dict) -> dict:
     entries = {}
     for status in ("approved", "unapproved"):
         for entry in data.get(status, []):
-            entries[entry["id"]] = entry
+            entries[cog_key(entry)] = entry
     return entries
 
 
@@ -41,9 +43,9 @@ def main() -> None:
         head_entries = load_entries(json.load(f))
 
     changed = [
-        cog_id
-        for cog_id, entry in head_entries.items()
-        if base_entries.get(cog_id) != entry
+        key
+        for key, entry in head_entries.items()
+        if base_entries.get(key) != entry
     ]
 
     print("\n".join(changed))

@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import type { Cog } from '../types';
-
-function buildInstallSnippet(cog: Cog): string {
-  const name = cog.name ?? cog.id;
-  const branch = cog.branch ? `#${cog.branch}` : '';
-  const location = cog.install_url ?? `git+${cog.repo}.git${branch}`;
-  return `[[ballsdex.packages]]\nlocation = "${location}"\npath = "${name}"\nenabled = true`;
-}
+import { buildInstallSnippet } from '../lib/installSnippet';
 
 function getLicenseText(license: Cog['license']): string {
   if (!license) return '';
@@ -118,7 +112,15 @@ function formatStars(stars: number): string {
 
 // ── Card ─────────────────────────────────────────────────────────────────────
 
-export function PackageCard({ cog }: { cog: Cog }) {
+export function PackageCard({
+  cog,
+  selected = false,
+  onToggleSelect,
+}: {
+  cog: Cog;
+  selected?: boolean;
+  onToggleSelect?: () => void;
+}) {
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -135,26 +137,38 @@ export function PackageCard({ cog }: { cog: Cog }) {
   }
 
   return (
-    <article className="group relative flex flex-col gap-3 overflow-hidden rounded-xl border border-zinc-800 bg-[#1a1a1a] p-5 shadow-md transition-all duration-200 hover:border-zinc-600 hover:bg-[#1f1f1f] hover:shadow-xl">
+    <article className={`group relative flex flex-col gap-3 overflow-hidden rounded-xl border bg-[#1a1a1a] p-5 shadow-md transition-all duration-200 hover:border-zinc-600 hover:bg-[#1f1f1f] hover:shadow-xl ${selected ? 'border-sky-600' : 'border-zinc-800'}`}>
       <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-500 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <h3 className="truncate font-semibold text-white">
-            {cog.name ?? cog.id}
-          </h3>
-          <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
-            {cog.version && (
-              <span className="inline-block rounded-full border border-emerald-800/60 bg-emerald-950/60 px-2 font-mono text-xs text-emerald-400">
-                v{cog.version}
-              </span>
-            )}
-            {typeof cog.stars === 'number' && (
-              <span className="inline-flex items-center gap-1 rounded-full border border-amber-800/60 bg-amber-950/40 px-2 font-mono text-xs text-amber-400">
-                <StarIcon />
-                {formatStars(cog.stars)}
-              </span>
-            )}
+        <div className="flex min-w-0 items-start gap-2.5">
+          {onToggleSelect && (
+            <input
+              type="checkbox"
+              checked={selected}
+              onChange={onToggleSelect}
+              title="Add to install list"
+              aria-label={`Select ${cog.name ?? cog.repo} for install`}
+              className="mt-1 h-3.5 w-3.5 shrink-0 accent-sky-500"
+            />
+          )}
+          <div className="min-w-0">
+            <h3 className="truncate font-semibold text-white">
+              {cog.name ?? cog.repo}
+            </h3>
+            <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
+              {cog.version && (
+                <span className="inline-block rounded-full border border-emerald-800/60 bg-emerald-950/60 px-2 font-mono text-xs text-emerald-400">
+                  v{cog.version}
+                </span>
+              )}
+              {typeof cog.stars === 'number' && (
+                <span className="inline-flex items-center gap-1 rounded-full border border-amber-800/60 bg-amber-950/40 px-2 font-mono text-xs text-amber-400">
+                  <StarIcon />
+                  {formatStars(cog.stars)}
+                </span>
+              )}
+            </div>
           </div>
         </div>
 
@@ -197,6 +211,20 @@ export function PackageCard({ cog }: { cog: Cog }) {
           </span>
         )}
       </div>
+
+      {/* Tags */}
+      {cog.tags && cog.tags.length > 0 && (
+        <div className="flex flex-wrap items-center gap-1.5">
+          {cog.tags.map(tag => (
+            <span
+              key={tag}
+              className="rounded-full border border-sky-800/60 bg-sky-950/40 px-2 py-0.5 text-xs text-sky-400"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* Install */}
       <div>

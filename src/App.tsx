@@ -3,6 +3,7 @@ import type { Cog } from './types';
 import { PackageCard } from './components/PackageCard';
 import { SubmitPage } from './components/SubmitPage';
 import { InstallPage } from './components/InstallPage';
+import { buildCombinedInstallSnippet } from './lib/installSnippet';
 
 type Page = 'index' | 'install' | 'submit';
 
@@ -39,6 +40,10 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'creator', label: 'Creator' },
 ];
 
+function cogKey(cog: Cog): string {
+  return `${cog.repo}@${cog.branch}#${cog.subdirectory ?? ''}`;
+}
+
 function getCreatorName(cog: Cog): string {
   const first = cog.authors?.[0];
   if (!first) return '';
@@ -53,7 +58,7 @@ function sortCogs(cogs: Cog[], sortBy: SortOption): Cog[] {
       sorted.sort((a, b) => (b.stars ?? 0) - (a.stars ?? 0));
       break;
     case 'alphabetical':
-      sorted.sort((a, b) => (a.name ?? a.id).localeCompare(b.name ?? b.id));
+      sorted.sort((a, b) => (a.name ?? a.repo).localeCompare(b.name ?? b.repo));
       break;
     case 'creator':
       sorted.sort((a, b) => getCreatorName(a).localeCompare(getCreatorName(b)));
@@ -123,6 +128,9 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState<Page>('index');
   const [sortBy, setSortBy] = useState<SortOption>('default');
+  const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [installCopied, setInstallCopied] = useState(false);
 
   useEffect(() => {
     fetch('/data/resolved.json')
@@ -140,16 +148,54 @@ export default function App() {
       });
   }, []);
 
+  const allTags = useMemo(() => {
+    const set = new Set<string>();
+    cogs.forEach(c => c.tags?.forEach(t => set.add(t)));
+    return Array.from(set).sort();
+  }, [cogs]);
+
+  function toggleTag(tag: string) {
+    setSelectedTags(prev => {
+      const next = new Set(prev);
+      if (next.has(tag)) next.delete(tag);
+      else next.add(tag);
+      return next;
+    });
+  }
+
+  function toggleSelect(id: string) {
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  const selectedCogs = useMemo(
+    () => cogs.filter(c => selectedIds.has(cogKey(c))),
+    [cogs, selectedIds],
+  );
+
+  function handleCopyCombined() {
+    navigator.clipboard.writeText(buildCombinedInstallSnippet(selectedCogs)).then(() => {
+      setInstallCopied(true);
+      setTimeout(() => setInstallCopied(false), 1500);
+    });
+  }
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return cogs;
-    return cogs.filter(
-      cog =>
-        (cog.name ?? cog.id).toLowerCase().includes(q) ||
-        (cog.description ?? '').toLowerCase().includes(q) ||
-        cog.id.toLowerCase().includes(q),
-    );
-  }, [cogs, query]);
+    return cogs.filter(cog => {
+      const matchesQuery =
+        !q ||
+        (cog.name ?? cog.repo).toLowerCase().includes(q) ||
+        (cog.description ?? '').toLowerCase().includes(q);
+      const matchesTags =
+        selectedTags.size === 0 || (cog.tags ?? []).some(t => selectedTags.has(t));
+      return matchesQuery && matchesTags;
+    });
+  }, [cogs, query, selectedTags]);
 
   const approved = sortCogs(filtered.filter(c => c.status === 'approved'), sortBy);
   const unapproved = sortCogs(filtered.filter(c => c.status === 'unapproved'), sortBy);
@@ -241,12 +287,41 @@ export default function App() {
       ) : page === 'install' ? (
         <InstallPage />
       ) : (
-        <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+        <main className={`mx-auto max-w-6xl px-4 py-10 sm:px-6 ${selectedIds.size > 0 ? 'pb-24' : ''}`}>
           {loading && <Spinner />}
           {error && <ErrorBanner message={error} />}
 
           {!loading && !error && (
             <div className="flex flex-col gap-12">
+              {allTags.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-medium text-zinc-500">Filter by tag:</span>
+                  {allTags.map(tag => (
+                    <button
+                      key={tag}
+                      type="button"
+                      onClick={() => toggleTag(tag)}
+                      className={`rounded-full border px-2.5 py-1 text-xs transition-colors ${
+                        selectedTags.has(tag)
+                          ? 'border-sky-500 bg-sky-500/15 text-sky-300'
+                          : 'border-zinc-700 bg-zinc-800/50 text-zinc-400 hover:text-zinc-200'
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                  {selectedTags.size > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedTags(new Set())}
+                      className="text-xs text-zinc-500 underline underline-offset-2 hover:text-zinc-300"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+              )}
+
               {/* Approved */}
               <section>
                 <SectionHeader
@@ -257,7 +332,12 @@ export default function App() {
                 {approved.length > 0 ? (
                   <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
                     {approved.map(c => (
-                      <PackageCard key={c.id} cog={c} />
+                      <PackageCard
+                        key={cogKey(c)}
+                        cog={c}
+                        selected={selectedIds.has(cogKey(c))}
+                        onToggleSelect={() => toggleSelect(cogKey(c))}
+                      />
                     ))}
                   </div>
                 ) : (
@@ -280,7 +360,12 @@ export default function App() {
                 {unapproved.length > 0 ? (
                   <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
                     {unapproved.map(c => (
-                      <PackageCard key={c.id} cog={c} />
+                      <PackageCard
+                        key={cogKey(c)}
+                        cog={c}
+                        selected={selectedIds.has(cogKey(c))}
+                        onToggleSelect={() => toggleSelect(cogKey(c))}
+                      />
                     ))}
                   </div>
                 ) : (
@@ -290,6 +375,33 @@ export default function App() {
             </div>
           )}
         </main>
+      )}
+
+      {/* ── Selection bar ── */}
+      {page === 'index' && selectedIds.size > 0 && (
+        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-zinc-800 bg-[#161616]/95 backdrop-blur-md">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
+            <span className="text-sm text-zinc-300">
+              {selectedIds.size} package{selectedIds.size !== 1 ? 's' : ''} selected
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setSelectedIds(new Set())}
+                className="text-xs text-zinc-500 underline underline-offset-2 hover:text-zinc-300"
+              >
+                Clear
+              </button>
+              <button
+                type="button"
+                onClick={handleCopyCombined}
+                className="rounded-lg border border-sky-700 bg-sky-900/40 px-3 py-1.5 text-xs font-medium text-sky-300 transition-colors hover:bg-sky-900/60"
+              >
+                {installCopied ? 'Copied!' : 'Copy combined config'}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

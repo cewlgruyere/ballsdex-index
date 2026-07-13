@@ -1,104 +1,84 @@
 {
   "approved": [
     {
-      "id": "collector",
       "repo": "https://github.com/flaree/ballsdex-collector",
       "branch": "master"
     }
   ],
   "unapproved": [
     {
-      "id": "frames",
       "repo": "https://github.com/flaree/ballsdex-frames",
       "branch": "master"
     },
     {
-      "id": "crafting",
       "repo": "https://github.com/flaree/ballsdex-crafting",
       "branch": "master"
     },
     {
-      "id": "broadcast",
       "repo": "https://github.com/Ray-Hsueh/BallsDex-Broadcast-Pack",
       "branch": "main"
     },
     {
-      "id": "bd-labelmaker",
       "repo": "https://github.com/dormieriancitizen/bd-labelmaker",
       "branch": "main"
     },
     {
-      "id": "report",
       "repo": "https://github.com/Ray-Hsueh/BallsDex-Report-Pack",
       "branch": "main"
     },
     {
-      "id": "leaderboard",
       "repo": "https://github.com/cewlgruyere/Leaderboard-BD",
       "branch": "main"
     },
     {
-      "id": "dexscript",
       "repo": "https://github.com/Caylies/DexScript",
       "branch": "BD-3.0"
     },
     {
-      "id": "collect",
       "repo": "https://github.com/CrashTestAlex/collectibles-ballsdex",
       "branch": "main"
     },
     {
-      "id": "v2-completion",
       "repo": "https://github.com/cewlgruyere/V2-Completion",
       "branch": "main"
     },
     {
-      "id": "hiboman-rarity",
       "repo": "https://github.com/MapsDex-Team/BallsDex-Rarity-Pack",
       "branch": "master"
     },
     {
-      "id": "bd-fontchanger",
       "repo": "https://github.com/dormieriancitizen/bd-fontchanger",
       "branch": "main"
     },
     {
-      "id": "BossPackageBD",
       "repo": "https://github.com/MoOfficial0000/BossPackageBD",
       "branch": "BossPackageBD-V3"
     },
     {
-      "id": "hiboman-leaderboard",
       "repo": "https://github.com/MapsDex-Team/BallsDex-Leaderboard-Pack",
       "branch": "master"
     },
     {
-      "id": "re-collection",
       "repo": "https://github.com/cewlgruyere/ReCol",
       "branch": "master"
     },
     {
-      "id": "hiboman-antifarm",
       "repo": "https://github.com/MapsDex-Team/BallsDex-AntiFarm-Pack",
       "branch": "master"
     },
     {
-      "id": "hiboman-battle",
       "repo": "https://github.com/MapsDex-Team/BallsDex-Battle-Pack",
       "branch": "master"
     },
     {
-      "id": "hiboman-crafting",
       "repo": "https://github.com/MapsDex-Team/BallsDex-Crafting-Pack",
       "branch": "master"
     },
     {
-      "id": "SpecialBonuses",
       "repo": "https://github.com/cewlgruyere/SpecialBonuses",
       "branch": "main"
     },
     {
-      "id": "packs",
       "repo": "https://github.com/seiftheman/ballsdex-packs",
       "branch": "main"
     },

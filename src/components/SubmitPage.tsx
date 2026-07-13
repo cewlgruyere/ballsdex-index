@@ -26,7 +26,6 @@ export function SubmitPage() {
           Open <code className="rounded bg-zinc-800 px-1.5 py-0.5 font-mono text-xs text-zinc-300">data/cogs.json</code> and
           append an entry to the <code className="rounded bg-zinc-800 px-1.5 py-0.5 font-mono text-xs text-zinc-300">unapproved</code> array:
           <pre className="mt-3 overflow-x-auto rounded-lg border border-zinc-800 bg-[#0d0d0d] px-4 py-3 font-mono text-xs leading-relaxed text-zinc-300">{`{
-  "id": "your-cog-id",
   "repo": "https://github.com/you/your-repo",
   "branch": "main"
 }`}</pre>
@@ -49,7 +48,10 @@ export function SubmitPage() {
           >
             Ballsdex wiki
           </a>{' '}
-          for the required fields and format.
+          for the required fields and format. Add an optional{' '}
+          <code className="rounded bg-zinc-800 px-1.5 py-0.5 font-mono text-xs text-zinc-300">keywords</code> list to{' '}
+          <code className="rounded bg-zinc-800 px-1.5 py-0.5 font-mono text-xs text-zinc-300">[project]</code> to power
+          the tag filter on the index page, e.g. <code className="rounded bg-zinc-800 px-1.5 py-0.5 font-mono text-xs text-zinc-300">keywords = ["economy", "fun"]</code>.
         </>
       ),
     },

@@ -12,7 +12,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from cog_utils import clone_and_read, get_release_ref, get_stars
+from cog_utils import clone_and_read, cog_key, get_release_ref, get_stars
 
 REPO_ROOT = Path(__file__).parent.parent
 COGS_FILE = REPO_ROOT / "data" / "cogs.json"
@@ -30,8 +30,7 @@ def main() -> None:
             repo_url = entry["repo"]
             branch = entry.get("branch", "main")
             subdirectory = entry.get("subdirectory")
-            cog_id = entry["id"]
-            print(f"Processing [{status}] {cog_id} ({repo_url}@{branch}) ...")
+            print(f"Processing [{status}] {cog_key(entry)} ...")
 
             with tempfile.TemporaryDirectory() as tmpdir:
                 metadata = clone_and_read(repo_url, branch, tmpdir, subdirectory)
@@ -42,7 +41,7 @@ def main() -> None:
             version = metadata.get("version", "")
             release_ref = get_release_ref(repo_url, version) if version else None
             if not release_ref:
-                print(f"  SKIPPING {cog_id}: no release found for version {version!r}", file=sys.stderr)
+                print(f"  SKIPPING {cog_key(entry)}: no release found for version {version!r}", file=sys.stderr)
                 continue
 
             install_url = f"git+{repo_url}@{release_ref}"
@@ -50,9 +49,9 @@ def main() -> None:
                 install_url += f"#subdirectory={subdirectory}"
 
             stars = get_stars(repo_url)
+            tags = metadata.pop("tags", [])
 
             resolved.append({
-                "id": cog_id,
                 "status": status,
                 "repo": repo_url,
                 "branch": branch,
@@ -60,6 +59,7 @@ def main() -> None:
                 "install_url": install_url,
                 **metadata,
                 **({"stars": stars} if stars is not None else {}),
+                **({"tags": tags} if tags else {}),
             })
 
     with open(RESOLVED_FILE, "w") as f:
